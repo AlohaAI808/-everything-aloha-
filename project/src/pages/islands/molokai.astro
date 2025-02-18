@@ -1,0 +1,86 @@
+---
+import IslandLayout from '../../layouts/IslandLayout.astro';
+
+const highlights = [
+  {
+    title: "Kalaupapa National Historical Park",
+    description: "Experience the powerful history and stunning views of this former Hansen's disease colony, accessible by mule ride or hiking.",
+    image: "https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    title: "Papohaku Beach",
+    description: "One of Hawaii's largest white-sand beaches, stretching three miles along Molokai's western shore.",
+    image: "https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    title: "Halawa Valley",
+    description: "Ancient Hawaiian settlement featuring taro fields, sacred sites, and spectacular waterfalls.",
+    image: "https://images.unsplash.com/photo-1545251142-f32339076e6d?auto=format&fit=crop&w=800&q=80"
+  }
+];
+---
+
+<IslandLayout
+  title="Molokai - The Friendly Isle | Everything Aloha"
+  heroImage="https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=2000&q=80"
+  heroTitle="Welcome to Molokai"
+  heroSubtitle="Experience authentic Hawaii"
+>
+  <div class="max-w-4xl mx-auto">
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-6 text-blue-900">About Molokai</h2>
+      <p class="text-gray-600 mb-4 leading-relaxed">
+        Molokai, known as "The Friendly Isle," offers visitors an authentic Hawaiian experience 
+        away from the crowds. With no building taller than a coconut tree and no traffic lights, 
+        this island preserves Hawaii's traditional way of life.
+      </p>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-blue-900">Island Highlights</h2>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {highlights.map(highlight => (
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 hover:shadow-xl">
+            <div class="relative h-48 bg-blue-50">
+              <div class="absolute inset-0 animate-pulse"></div>
+              <img 
+                src={highlight.image} 
+                alt={highlight.title}
+                class="w-full h-full object-cover"
+                loading="lazy"
+                onload="this.parentElement.querySelector('.animate-pulse').style.display='none'"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <h3 class="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-lg">
+                {highlight.title}
+              </h3>
+            </div>
+            <div class="p-6">
+              <p class="text-gray-600">{highlight.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-3xl font-bold mb-6 text-blue-900">Plan Your Visit</h2>
+      <div class="bg-blue-50 p-8 rounded-xl shadow-inner">
+        <h3 class="text-xl font-semibold mb-4 text-blue-900">Travel Tips</h3>
+        <ul class="space-y-4">
+          {[
+            "Book Kalaupapa tours well in advance",
+            "Rent a car to explore the island's remote areas",
+            "Respect local customs and traditions",
+            "Visit local farmers markets for fresh produce"
+          ].map(tip => (
+            <li class="flex items-start space-x-3">
+              <span class="text-blue-500 mt-1">✓</span>
+              <span class="text-gray-700">{tip}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </div>
+</IslandLayout>

@@ -1,0 +1,167 @@
+---
+import FormField from './FormField.astro';
+import CheckboxGroup from './CheckboxGroup.astro';
+import Button from '../common/Button.astro';
+import { FORM_CONFIG } from '../../config/constants';
+
+const { vacationPlanner } = FORM_CONFIG;
+
+const islands = [
+  { value: 'oahu', label: 'Oahu' },
+  { value: 'maui', label: 'Maui' },
+  { value: 'kauai', label: 'Kauai' },
+  { value: 'big-island', label: 'Big Island' },
+  { value: 'lanai', label: 'Lanai' },
+  { value: 'molokai', label: 'Molokai' }
+];
+
+const travelStyles = [
+  { value: 'relaxation', label: 'Relaxation and leisure' },
+  { value: 'adventure', label: 'Adventure and activities' },
+  { value: 'culture', label: 'Culture and history' },
+  { value: 'family', label: 'Family-friendly' },
+  { value: 'romantic', label: 'Romantic getaway' },
+  { value: 'luxury', label: 'Luxury experience' }
+];
+
+const planningOptions = [
+  { value: 'single-day', label: 'Single-day itinerary ($50)' },
+  { value: 'multi-day', label: 'Multi-day vacation planning ($200+)' }
+];
+---
+
+<form
+  name={vacationPlanner.formName}
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class="space-y-6"
+>
+  <p class="hidden">
+    <label>
+      Don't fill this out if you're human: <input name="bot-field" />
+    </label>
+  </p>
+
+  <div class="grid gap-6 md:grid-cols-2">
+    <FormField
+      label="Name"
+      name="name"
+      required
+    />
+    <FormField
+      label="Email"
+      name="email"
+      type="email"
+      required
+    />
+  </div>
+
+  <FormField
+    label="Phone Number"
+    name="phone"
+    type="tel"
+  />
+
+  <div class="grid gap-6 md:grid-cols-2">
+    <FormField
+      label="Travel Dates"
+      name="travel_dates"
+      type="date"
+      required
+    />
+    <FormField
+      label="Number of Travelers"
+      name="travelers"
+      type="number"
+      required
+    />
+  </div>
+
+  <CheckboxGroup
+    label="Islands You're Visiting"
+    name="islands"
+    options={islands}
+    required
+  />
+
+  <FormField
+    label="Travel Style"
+    name="travel_style"
+    type="select"
+    options={travelStyles}
+    required
+  />
+
+  <FormField
+    label="Planning Service"
+    name="planning_option"
+    type="select"
+    options={planningOptions}
+    required
+  />
+
+  <FormField
+    label="Special Interests or Activities"
+    name="interests"
+    type="textarea"
+    placeholder="Tell me about any specific activities or experiences you're interested in..."
+  />
+
+  <FormField
+    label="Additional Notes"
+    name="notes"
+    type="textarea"
+    placeholder="Any other details you'd like me to know..."
+  />
+
+  <div id="planner-message" class="text-sm hidden">
+    <p class="success text-green-600 hidden">{vacationPlanner.successMessage}</p>
+    <p class="error text-red-600 hidden">{vacationPlanner.errorMessage}</p>
+  </div>
+
+  <Button type="submit" variant="primary" size="lg" className="w-full">
+    Submit Request
+  </Button>
+</form>
+
+<script>
+  import { submitVacationPlannerForm } from '../../services/forms/vacation-planner';
+
+  const forms = document.querySelectorAll<HTMLFormElement>(`form[name="${FORM_CONFIG.vacationPlanner.formName}"]`);
+
+  forms.forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const button = form.querySelector('button[type="submit"]');
+      const messageDiv = form.querySelector('#planner-message');
+      const successMessage = messageDiv?.querySelector('.success');
+      const errorMessage = messageDiv?.querySelector('.error');
+      
+      try {
+        if (button) button.disabled = true;
+        
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+        
+        const success = await submitVacationPlannerForm(data);
+        
+        if (success) {
+          form.reset();
+          messageDiv?.classList.remove('hidden');
+          successMessage?.classList.remove('hidden');
+          errorMessage?.classList.add('hidden');
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        messageDiv?.classList.remove('hidden');
+        errorMessage?.classList.remove('hidden');
+        successMessage?.classList.add('hidden');
+      } finally {
+        if (button) button.disabled = false;
+      }
+    });
+  });
+</script>

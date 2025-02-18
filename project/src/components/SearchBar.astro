@@ -1,0 +1,43 @@
+---
+interface Props {
+  placeholder?: string;
+}
+
+const { placeholder = "Search islands, activities, or blog posts..." } = Astro.props;
+---
+
+<div class="w-full max-w-3xl mx-auto mb-12">
+  <div class="relative">
+    <input
+      type="text"
+      id="search-input"
+      class="w-full px-6 py-4 text-lg rounded-full border-2 border-blue-100 focus:border-blue-400 focus:ring-2 focus:ring-blue-200 focus:outline-none transition-all duration-300 shadow-lg pl-14"
+      placeholder={placeholder}
+    />
+    <div class="absolute left-4 top-1/2 -translate-y-1/2 text-blue-400">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+      </svg>
+    </div>
+  </div>
+</div>
+
+<script>
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const islandCards = document.querySelectorAll('.island-card');
+
+  searchInput?.addEventListener('input', (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+    
+    islandCards.forEach((card) => {
+      const title = card.querySelector('h3')?.textContent?.toLowerCase() || '';
+      const description = card.querySelector('p')?.textContent?.toLowerCase() || '';
+      
+      if (title.includes(searchTerm) || description.includes(searchTerm)) {
+        (card as HTMLElement).style.display = 'block';
+      } else {
+        (card as HTMLElement).style.display = 'none';
+      }
+    });
+  });
+</script>

@@ -1,0 +1,74 @@
+<svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E0F4FF;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="400" fill="url(#skyGradient)"/>
+  
+  <!-- Hawaiian Islands -->
+  <!-- Kauai -->
+  <path d="M100 320 Q110 310 120 315 Q130 320 125 330 Q120 340 110 335 Q100 330 100 320Z" fill="#22C55E"/>
+  <!-- Oahu -->
+  <path d="M150 325 Q165 320 175 325 Q185 330 180 340 Q175 350 165 345 Q155 340 150 325Z" fill="#22C55E"/>
+  <!-- Molokai -->
+  <path d="M200 330 Q220 325 230 330 Q235 335 230 340 Q220 345 210 340 Q200 335 200 330Z" fill="#22C55E"/>
+  <!-- Lanai -->
+  <path d="M240 335 Q250 330 255 335 Q260 340 255 345 Q250 350 245 345 Q240 340 240 335Z" fill="#22C55E"/>
+  <!-- Maui -->
+  <path d="M270 325 Q290 320 300 325 Q310 330 305 340 Q300 350 290 345 Q280 340 270 325Z" fill="#22C55E"/>
+  <!-- Big Island -->
+  <path d="M330 310 Q360 300 380 310 Q400 320 390 340 Q380 360 360 350 Q340 340 330 310Z" fill="#22C55E"/>
+  
+  <!-- Parrot body structure -->
+  <g transform="translate(300, 50)">
+    <!-- Head feathers -->
+    <path d="M100 50 C120 20 140 10 160 20 C180 30 190 50 185 70 C180 90 160 100 140 95 C120 90 110 70 100 50Z" fill="#0EA5E9"/>
+    <path d="M110 55 C125 30 145 20 160 25 C175 35 180 50 175 65 C170 80 155 90 140 85 C125 80 115 70 110 55Z" fill="#22C55E"/>
+    
+    <!-- Body feathers -->
+    <path d="M80 70 C100 50 130 40 160 50 C190 60 200 90 190 120 C180 150 150 160 120 150 C90 140 70 110 80 70Z" fill="#0EA5E9"/>
+    <path d="M90 75 C110 60 135 50 160 60 C185 70 190 95 180 120 C170 145 145 150 120 140 C95 130 80 105 90 75Z" fill="#22C55E"/>
+    
+    <!-- Breast feathers -->
+    <path d="M100 90 C120 80 140 75 160 85 C180 95 185 115 175 135 C165 155 145 160 125 150 C105 140 95 120 100 90Z" fill="#FCD34D"/>
+    
+    <!-- Eye -->
+    <circle cx="145" cy="65" r="12" fill="white"/>
+    <circle cx="145" cy="65" r="8" fill="#3B82F6"/>
+    <circle cx="143" cy="63" r="3" fill="white"/>
+    
+    <!-- Beak -->
+    <path d="M160 70 C175 75 180 80 175 85 C170 90 165 90 160 85Z" fill="#1E40AF"/>
+    
+    <!-- Lei with plumeria flowers -->
+    <g transform="translate(120, 100)">
+      <!-- White plumeria -->
+      <path d="M0 0 L5 -3 L8 -8 L11 -3 L16 0 L11 3 L8 8 L5 3 Z" fill="white"/>
+      <circle cx="8" cy="0" r="3" fill="#FCD34D"/>
+      
+      <!-- Pink plumeria -->
+      <path d="M15 5 L20 2 L23 -3 L26 2 L31 5 L26 8 L23 13 L20 8 Z" fill="#FDB4D3"/>
+      <circle cx="23" cy="5" r="3" fill="#FCD34D"/>
+      
+      <!-- White plumeria -->
+      <path d="M30 0 L35 -3 L38 -8 L41 -3 L46 0 L41 3 L38 8 L35 3 Z" fill="white"/>
+      <circle cx="38" cy="0" r="3" fill="#FCD34D"/>
+    </g>
+    
+    <!-- Branch -->
+    <path d="M70 140 L200 140" stroke="#92400E" stroke-width="12" stroke-linecap="round"/>
+    <path d="M70 140 L200 140" stroke="#B45309" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Bird of Paradise flowers -->
+  <path d="M100 300 C120 280 130 250 120 220" stroke="#EA580C" stroke-width="4" fill="none"/>
+  <path d="M700 300 C680 280 670 250 680 220" stroke="#EA580C" stroke-width="4" fill="none"/>
+  <path d="M120 220 L130 200" stroke="#0EA5E9" stroke-width="8" stroke-linecap="round"/>
+  <path d="M680 220 L670 200" stroke="#0EA5E9" stroke-width="8" stroke-linecap="round"/>
+  
+  <!-- Ocean waves -->
+  <path d="M0 350 Q200 330 400 350 Q600 370 800 350 L800 400 L0 400 Z" fill="#0EA5E9" opacity="0.6"/>
+</svg>

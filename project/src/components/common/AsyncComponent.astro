@@ -1,0 +1,15 @@
+---
+interface Props {
+  component: () => Promise<any>;
+  fallback?: string;
+  className?: string;
+}
+
+const { component, fallback = 'Loading...', className = '' } = Astro.props;
+
+const Component = await component();
+---
+
+<div class={className}>
+  {Component ? <Component.default /> : <div>{fallback}</div>}
+</div>

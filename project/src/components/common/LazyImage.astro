@@ -1,0 +1,16 @@
+---
+import LazyLoad from './LazyLoad.astro';
+import Image from './Image.astro';
+import type { ImageProps } from '../../types/image';
+
+interface Props extends ImageProps {
+  threshold?: number;
+  rootMargin?: string;
+}
+
+const { threshold, rootMargin, ...imageProps } = Astro.props;
+---
+
+<LazyLoad threshold={threshold} rootMargin={rootMargin}>
+  <Image {...imageProps} />
+</LazyLoad>

@@ -1,0 +1,95 @@
+---
+import IslandLayout from '../../layouts/IslandLayout.astro';
+
+const highlights = [
+  {
+    title: "Hulopoe Beach",
+    description: "A pristine marine sanctuary perfect for snorkeling and swimming, with frequent dolphin sightings.",
+    image: "https://images.unsplash.com/photo-1483168527879-c66136b56105?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    title: "Garden of the Gods",
+    description: "A unique lunar-like rock garden with colorful formations and Hawaiian legends.",
+    image: "https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    title: "Lanai Cat Sanctuary",
+    description: "Home to hundreds of rescued cats in a peaceful setting, known as the 'Hawaiian Lion Habitat'.",
+    image: "https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?auto=format&fit=crop&w=800&q=80"
+  }
+];
+---
+
+<IslandLayout
+  title="Lanai - The Pineapple Isle | Everything Aloha"
+  heroImage="https://images.unsplash.com/photo-1483168527879-c66136b56105?auto=format&fit=crop&w=2000&q=80"
+  heroTitle="Welcome to Lanai"
+  heroSubtitle="Discover luxury in seclusion"
+>
+  <div class="max-w-4xl mx-auto">
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-6 text-blue-900">About Lanai</h2>
+      <p class="text-gray-600 mb-4 leading-relaxed">
+        Lanai, formerly known as the "Pineapple Isle," has transformed from a pineapple plantation 
+        into an exclusive luxury destination. With only 30 miles of paved roads and no traffic lights, 
+        this small island offers an intimate and unique Hawaiian experience.
+      </p>
+      
+      <div class="text-center mt-8">
+        <a 
+          href="/blog"
+          class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Explore Lanai Travel Guides, Activities, Resorts & Dining
+        </a>
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-blue-900">Island Highlights</h2>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {highlights.map(highlight => (
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 hover:shadow-xl">
+            <div class="relative h-48 bg-blue-50">
+              <div class="absolute inset-0 animate-pulse"></div>
+              <img 
+                src={highlight.image} 
+                alt={highlight.title}
+                class="w-full h-full object-cover"
+                loading="lazy"
+                onload="this.parentElement.querySelector('.animate-pulse').style.display='none'"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <h3 class="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-lg">
+                {highlight.title}
+              </h3>
+            </div>
+            <div class="p-6">
+              <p class="text-gray-600">{highlight.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-3xl font-bold mb-6 text-blue-900">Plan Your Visit</h2>
+      <div class="bg-blue-50 p-8 rounded-xl shadow-inner">
+        <h3 class="text-xl font-semibold mb-4 text-blue-900">Travel Tips</h3>
+        <ul class="space-y-4">
+          {[
+            "Book luxury accommodations in advance",
+            "Rent a 4WD vehicle for exploring",
+            "Visit during whale watching season (December-May)",
+            "Make dinner reservations at Nobu Lanai"
+          ].map(tip => (
+            <li class="flex items-start space-x-3">
+              <span class="text-blue-500 mt-1">✓</span>
+              <span class="text-gray-700">{tip}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </div>
+</IslandLayout>

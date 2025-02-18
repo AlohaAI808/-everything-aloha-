@@ -1,0 +1,97 @@
+---
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  type?: string;
+  keywords?: string[];
+}
+
+const { 
+  title,
+  description = "Experience luxury Hawaiian vacations with expert travel tips, exclusive resort recommendations, and VIP experiences. Your premium guide to paradise.",
+  image = "https://gatewaytoaloha.com/images/default-og.jpg",
+  type = "website",
+  keywords = [
+    "luxury Hawaii travel",
+    "Hawaii luxury resorts",
+    "VIP Hawaii experiences",
+    "luxury Hawaiian vacation",
+    "exclusive Hawaii tours",
+    "five star Hawaii hotels",
+    "luxury Maui resorts",
+    "private Hawaii tours",
+    "Hawaii luxury villas",
+    "premium Hawaii experiences",
+    "Hawaii honeymoon packages",
+    "luxury island hopping Hawaii"
+  ]
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, 'https://gatewaytoaloha.com').toString();
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="google-adsense-account" content="ca-pub-4273752514148511">
+    
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-X48V2TKZSE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-X48V2TKZSE');
+    </script>
+    
+    <!-- Primary Meta Tags -->
+    <title>{title} | Everything Aloha - Luxury Hawaii Travel</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords.join(', ')} />
+    <link rel="canonical" href={canonicalURL} />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TravelAgency",
+        "name": "Everything Aloha",
+        "description": "Luxury Hawaii travel experts providing exclusive experiences and VIP services",
+        "url": "https://gatewaytoaloha.com",
+        "image": "https://gatewaytoaloha.com/images/logo.svg",
+        "priceRange": "$$$",
+        "areaServed": {
+          "@type": "State",
+          "name": "Hawaii"
+        },
+        "specialty": "Luxury Travel"
+      }
+    </script>
+  </head>
+  <body>
+    <slot />
+    <Footer />
+  </body>
+</html>

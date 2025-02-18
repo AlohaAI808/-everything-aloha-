@@ -1,0 +1,145 @@
+---
+import Image from './Image.astro';
+
+interface Props {
+  images: Array<{
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+  }>;
+  autoplay?: boolean;
+  interval?: number;
+  className?: string;
+}
+
+const {
+  images,
+  autoplay = true,
+  interval = 5000,
+  className = ''
+} = Astro.props;
+---
+
+<div class={`relative overflow-hidden ${className}`} data-carousel>
+  <div class="flex transition-transform duration-500 ease-in-out" data-carousel-track>
+    {images.map((image, index) => (
+      <div class="w-full flex-shrink-0">
+        <Image
+          {...image}
+          class="w-full h-full"
+          loading={index === 0 ? 'eager' : 'lazy'}
+          priority={index === 0}
+        />
+      </div>
+    ))}
+  </div>
+  
+  <button
+    class="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 hover:bg-white shadow-lg transition-colors"
+    data-carousel-prev
+  >
+    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
+  
+  <button
+    class="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/80 hover:bg-white shadow-lg transition-colors"
+    data-carousel-next
+  >
+    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    </svg>
+  </button>
+
+  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2" data-carousel-indicators>
+    {images.map((_, index) => (
+      <button
+        class="w-2 h-2 rounded-full bg-white/50 hover:bg-white transition-colors"
+        data-carousel-indicator={index}
+      />
+    ))}
+  </div>
+</div>
+
+<script>
+class Carousel {
+  private track: HTMLElement;
+  private slides: HTMLElement[];
+  private currentIndex: number = 0;
+  private autoplayInterval?: number;
+
+  constructor(element: HTMLElement) {
+    this.track = element.querySelector('[data-carousel-track]')!;
+    this.slides = Array.from(this.track.children) as HTMLElement[];
+    
+    // Setup controls
+    element.querySelector('[data-carousel-prev]')?.addEventListener('click', () => this.prev());
+    element.querySelector('[data-carousel-next]')?.addEventListener('click', () => this.next());
+    
+    // Setup indicators
+    const indicators = element.querySelectorAll('[data-carousel-indicator]');
+    indicators.forEach(indicator => {
+      indicator.addEventListener('click', () => {
+        const index = parseInt(indicator.getAttribute('data-carousel-indicator') || '0');
+        this.goTo(index);
+      });
+    });
+
+    // Setup autoplay
+    if (element.hasAttribute('data-autoplay')) {
+      const interval = parseInt(element.getAttribute('data-interval') || '5000');
+      this.startAutoplay(interval);
+    }
+
+    // Update initial state
+    this.updateSlides();
+  }
+
+  private updateSlides() {
+    const offset = -100 * this.currentIndex;
+    this.track.style.transform = `translateX(${offset}%)`;
+    
+    // Update indicators
+    const indicators = this.track.parentElement?.querySelectorAll('[data-carousel-indicator]');
+    indicators?.forEach((indicator, index) => {
+      indicator.classList.toggle('bg-white', index === this.currentIndex);
+      indicator.classList.toggle('bg-white/50', index !== this.currentIndex);
+    });
+  }
+
+  public prev() {
+    this.currentIndex = (this.currentIndex - 1 + this.slides.length) % this.slides.length;
+    this.updateSlides();
+  }
+
+  public next() {
+    this.currentIndex = (this.currentIndex + 1) % this.slides.length;
+    this.updateSlides();
+  }
+
+  public goTo(index: number) {
+    this.currentIndex = Math.max(0, Math.min(index, this.slides.length - 1));
+    this.updateSlides();
+  }
+
+  private startAutoplay(interval: number) {
+    this.autoplayInterval = setInterval(() => this.next(), interval);
+    
+    // Pause on hover
+    this.track.parentElement?.addEventListener('mouseenter', () => {
+      clearInterval(this.autoplayInterval);
+    });
+    
+    this.track.parentElement?.addEventListener('mouseleave', () => {
+      this.autoplayInterval = setInterval(() => this.next(), interval);
+    });
+  }
+}
+
+// Initialize all carousels
+document.querySelectorAll('[data-carousel]').forEach(element => {
+  new Carousel(element as HTMLElement);
+});
+</script>

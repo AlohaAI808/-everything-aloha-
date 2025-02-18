@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Circle with Modern Gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1E3A8A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1E40AF;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#0284C7;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0EA5E9;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Main Circle -->
+  <circle cx="256" cy="256" r="240" fill="url(#bgGradient)" stroke="#0EA5E9" stroke-width="4"/>
+
+  <!-- Modern Ocean Waves -->
+  <g transform="translate(128, 256)">
+    <path d="M0,0 C64,-32 192,-32 256,0 C192,32 64,32 0,0" fill="url(#waveGradient)" opacity="0.9"/>
+    <path d="M0,40 C64,8 192,8 256,40 C192,72 64,72 0,40" fill="url(#waveGradient)" opacity="0.7"/>
+    <path d="M0,80 C64,48 192,48 256,80 C192,112 64,112 0,80" fill="url(#waveGradient)" opacity="0.5"/>
+  </g>
+
+  <!-- Minimalist Hibiscus -->
+  <g transform="translate(256, 200)">
+    <!-- Simplified Petals -->
+    <path d="M0,-60 C-15,-45 -30,-15 0,0 C30,-15 15,-45 0,-60" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="3"/>
+    <path d="M0,-60 C-15,-45 -30,-15 0,0 C30,-15 15,-45 0,-60" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="3" transform="rotate(72)"/>
+    <path d="M0,-60 C-15,-45 -30,-15 0,0 C30,-15 15,-45 0,-60" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="3" transform="rotate(144)"/>
+    <path d="M0,-60 C-15,-45 -30,-15 0,0 C30,-15 15,-45 0,-60" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="3" transform="rotate(216)"/>
+    <path d="M0,-60 C-15,-45 -30,-15 0,0 C30,-15 15,-45 0,-60" fill="#FFFFFF" stroke="#0EA5E9" stroke-width="3" transform="rotate(288)"/>
+    
+    <!-- Modern Center -->
+    <circle cx="0" cy="0" r="8" fill="#FCD34D"/>
+  </g>
+</svg>

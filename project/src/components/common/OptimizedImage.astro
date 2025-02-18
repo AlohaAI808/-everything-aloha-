@@ -1,0 +1,110 @@
+---
+import { getOptimizedImageUrl, generateSrcSet } from '../../utils/images/optimization';
+import type { ImageFormat } from '../../utils/images/types';
+import { imageConfig } from '../../config/constants';
+
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  sizes?: string;
+  formats?: ImageFormat[];
+  quality?: number;
+  priority?: boolean;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  class: className = '',
+  loading = 'lazy',
+  sizes = '(min-width: 1024px) 1024px, 100vw',
+  formats = imageConfig.formats,
+  quality = imageConfig.defaultQuality,
+  priority = false
+} = Astro.props;
+
+// Generate blur placeholder
+const placeholderSize = imageConfig.placeholderSize;
+const placeholderSrc = getOptimizedImageUrl(src, {
+  width: placeholderSize,
+  height: Math.round(placeholderSize * (height || 1) / (width || 1)),
+  quality: 10,
+  format: 'webp'
+});
+
+// Generate srcset for responsive images
+const srcSet = generateSrcSet(src, { formats, maxWidth: width });
+
+// Set loading attribute based on priority
+const loadingAttr = priority ? 'eager' : loading;
+
+// Calculate aspect ratio for placeholder
+const aspectRatio = height && width ? (height / width * 100) : 56.25;
+---
+
+<div class={`optimized-image ${className}`}>
+  <div 
+    class="bg-blue-50 relative overflow-hidden"
+    style={`padding-bottom: ${aspectRatio}%`}
+  >
+    {/* Blur placeholder */}
+    <img
+      src={placeholderSrc}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover blur-lg scale-110 transition-opacity duration-500"
+      aria-hidden="true"
+      width={placeholderSize}
+      height={Math.round(placeholderSize * aspectRatio / 100)}
+    />
+    
+    {/* Main image */}
+    <picture>
+      {formats.includes('webp') && (
+        <source
+          type="image/webp"
+          srcset={generateSrcSet(src, { formats: ['webp'], maxWidth: width })}
+          sizes={sizes}
+        />
+      )}
+      {formats.includes('avif') && (
+        <source
+          type="image/avif"
+          srcset={generateSrcSet(src, { formats: ['avif'], maxWidth: width })}
+          sizes={sizes}
+        />
+      )}
+      <img
+        src={getOptimizedImageUrl(src, { width, height, quality })}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={loadingAttr}
+        sizes={sizes}
+        class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500"
+        onload="this.classList.remove('opacity-0'); this.previousElementSibling?.classList.add('opacity-0')"
+        onerror="this.onerror=null; this.src='/images/fallback.jpg';"
+      />
+    </picture>
+  </div>
+</div>
+
+<style>
+.optimized-image {
+  position: relative;
+  overflow: hidden;
+}
+
+.optimized-image img {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.optimized-image img[aria-hidden="true"] {
+  transition: opacity 0.5s ease-in-out;
+}
+</style>

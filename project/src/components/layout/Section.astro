@@ -1,0 +1,20 @@
+---
+interface Props {
+  className?: string;
+  background?: 'white' | 'gray' | 'blue';
+}
+
+const { className = '', background = 'white' } = Astro.props;
+
+const bgStyles = {
+  white: 'bg-white',
+  gray: 'bg-gray-50',
+  blue: 'bg-blue-50'
+};
+
+const classes = `py-12 ${bgStyles[background]} ${className}`;
+---
+
+<section class={classes}>
+  <slot />
+</section>

@@ -1,0 +1,99 @@
+---
+import IslandLayout from '../../layouts/IslandLayout.astro';
+
+const highlights = [
+  {
+    title: "Luxury Resorts",
+    description: "Experience world-class hospitality at Maui's most prestigious resorts in Wailea and Kapalua.",
+    image: "https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=800&q=80",
+    alt: "Luxury resort infinity pool overlooking the ocean in Maui"
+  },
+  {
+    title: "Private Experiences",
+    description: "Exclusive helicopter tours, yacht charters, and personalized adventures.",
+    image: "https://images.unsplash.com/photo-1507876466758-bc54f384809c?auto=format&fit=crop&w=800&q=80",
+    alt: "Private yacht charter off Maui's coast"
+  },
+  {
+    title: "Fine Dining",
+    description: "Savor exceptional cuisine at award-winning restaurants with ocean views.",
+    image: "https://images.unsplash.com/photo-1505852679233-d9fd70aff56d?auto=format&fit=crop&w=800&q=80",
+    alt: "Fine dining experience at a luxury Maui restaurant"
+  }
+];
+---
+
+<IslandLayout
+  title="Luxury Maui Vacations & VIP Experiences | Everything Aloha"
+  description="Plan your luxury Maui vacation with expert recommendations for 5-star resorts, private tours, and exclusive experiences. Your guide to the finest accommodations and VIP services in paradise."
+  heroImage="https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=2000&q=80"
+  heroTitle="Welcome to Luxury Maui"
+  heroSubtitle="Where exclusivity meets paradise"
+>
+  <div class="max-w-4xl mx-auto">
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-6 text-blue-900">Experience Maui in Style</h2>
+      <p class="text-gray-600 mb-4 leading-relaxed">
+        Discover why Maui is the ultimate destination for luxury travelers. From world-class resorts 
+        in Wailea to exclusive villas in Kapalua, experience the perfect blend of Hawaiian hospitality 
+        and five-star luxury.
+      </p>
+
+      <div class="text-center mt-8">
+        <a 
+          href="/blog"
+          class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Explore Maui Travel Guides, Activities, Resorts & Dining
+        </a>
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-blue-900">Island Highlights</h2>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {highlights.map(highlight => (
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 hover:shadow-xl">
+            <div class="relative h-48 bg-blue-50">
+              <div class="absolute inset-0 animate-pulse"></div>
+              <img 
+                src={highlight.image} 
+                alt={highlight.alt}
+                class="w-full h-full object-cover"
+                loading="lazy"
+                onload="this.parentElement.querySelector('.animate-pulse').style.display='none'"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <h3 class="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-lg">
+                {highlight.title}
+              </h3>
+            </div>
+            <div class="p-6">
+              <p class="text-gray-600">{highlight.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-3xl font-bold mb-6 text-blue-900">Plan Your Visit</h2>
+      <div class="bg-blue-50 p-8 rounded-xl shadow-inner">
+        <h3 class="text-xl font-semibold mb-4 text-blue-900">Travel Tips</h3>
+        <ul class="space-y-4">
+          {[
+            "Book luxury accommodations 3-6 months in advance",
+            "Consider shoulder season for better rates",
+            "Reserve exclusive experiences early",
+            "Combine multiple islands for the ultimate experience"
+          ].map(tip => (
+            <li class="flex items-start space-x-3">
+              <span class="text-blue-500 mt-1">✓</span>
+              <span class="text-gray-700">{tip}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </div>
+</IslandLayout>

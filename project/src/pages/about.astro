@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Newsletter from '../components/Newsletter.astro';
+---
+
+<Layout title="About Us | Everything Aloha">
+  <Header />
+  <main class="pt-24 pb-16">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto mb-16">
+        <h1 class="text-4xl font-bold mb-6">About Everything Aloha</h1>
+        
+        <section class="prose lg:prose-lg mb-12">
+          <p>
+            Welcome to Everything Aloha, your ultimate guide to exploring the Hawaiian Islands. 
+            Our mission is to help travelers discover the authentic beauty, culture, and spirit of Hawaii.
+          </p>
+          
+          <p>
+            Whether you're planning your first visit or returning to these magical islands, 
+            we provide expert guidance, local insights, and carefully curated travel recommendations 
+            to make your Hawaiian vacation unforgettable.
+          </p>
+        </section>
+
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold mb-4">Our Commitment</h2>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <ul class="space-y-4">
+              <li class="flex items-start">
+                <span class="text-blue-600 mr-3">✓</span>
+                <span>Authentic local perspectives and insider tips</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-blue-600 mr-3">✓</span>
+                <span>Respect for Hawaiian culture and traditions</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-blue-600 mr-3">✓</span>
+                <span>Promotion of sustainable and responsible tourism</span>
+              </li>
+              <li class="flex items-start">
+                <span class="text-blue-600 mr-3">✓</span>
+                <span>Up-to-date travel information and resources</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </div>
+
+      <Testimonials />
+    </div>
+  </main>
+  
+  <Newsletter />
+</Layout>

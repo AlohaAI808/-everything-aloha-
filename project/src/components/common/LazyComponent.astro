@@ -1,0 +1,81 @@
+---
+import { Suspense } from 'react';
+
+interface Props {
+  component: () => Promise<any>;
+  fallback?: string;
+  threshold?: number;
+  rootMargin?: string;
+  className?: string;
+}
+
+const {
+  component,
+  fallback = 'Loading...',
+  threshold = 0.1,
+  rootMargin = '50px',
+  className = ''
+} = Astro.props;
+
+const Component = await component();
+---
+
+<div 
+  class={`lazy-component opacity-0 transition-opacity duration-500 ${className}`}
+  data-threshold={threshold}
+  data-root-margin={rootMargin}
+>
+  <Suspense fallback={<div>{fallback}</div>}>
+    <Component.default />
+  </Suspense>
+</div>
+
+<script>
+  class LazyComponentLoader {
+    private observer: IntersectionObserver;
+    private components: Set<Element> = new Set();
+
+    constructor() {
+      this.observer = new IntersectionObserver(
+        this.handleIntersection.bind(this),
+        {
+          threshold: 0.1,
+          rootMargin: '50px'
+        }
+      );
+
+      this.init();
+    }
+
+    private init() {
+      document.querySelectorAll('.lazy-component').forEach(element => {
+        this.components.add(element);
+        this.observer.observe(element);
+      });
+    }
+
+    private handleIntersection(entries: IntersectionObserverEntry[]) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          element.classList.remove('opacity-0');
+          this.observer.unobserve(element);
+          this.components.delete(element);
+        }
+      });
+    }
+
+    public disconnect() {
+      this.observer.disconnect();
+      this.components.clear();
+    }
+  }
+
+  // Initialize lazy component loading
+  const lazyLoader = new LazyComponentLoader();
+
+  // Cleanup on page navigation
+  document.addEventListener('astro:before-swap', () => {
+    lazyLoader.disconnect();
+  });
+</script>

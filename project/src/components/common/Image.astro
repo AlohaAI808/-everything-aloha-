@@ -1,0 +1,85 @@
+---
+import { getImageDimensions, generatePlaceholder } from '../../utils/images';
+
+interface Props {
+  src: string;
+  alt: string;
+  width?: number;
+  height?: number;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  sizes?: string;
+  priority?: boolean;
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  class: className = '',
+  loading = 'lazy',
+  sizes = '(min-width: 1024px) 1024px, 100vw',
+  priority = false
+} = Astro.props;
+
+// Determine if this is an external URL
+const isExternal = src.startsWith('http');
+
+// For external images, we'll use them directly
+// For local images, we'd use Astro's image optimization (in future PR)
+const imgSrc = isExternal ? src : src;
+
+// Calculate aspect ratio for placeholder
+const aspectRatio = height && width ? (height / width * 100) : 56.25;
+
+// Set loading attribute based on priority
+const loadingAttr = priority ? 'eager' : loading;
+
+// Generate blur placeholder
+const placeholder = generatePlaceholder(width || 1200, height || 675);
+---
+
+<div class={`image-wrapper ${className}`}>
+  <div 
+    class="bg-blue-50 animate-pulse relative overflow-hidden"
+    style={`padding-bottom: ${aspectRatio}%`}
+  >
+    {/* Blur placeholder */}
+    <img
+      src={placeholder}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover blur-lg scale-110"
+      aria-hidden="true"
+    />
+    
+    {/* Main image */}
+    <img
+      src={imgSrc}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loadingAttr}
+      sizes={sizes}
+      class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
+      style="opacity: 0"
+      onload="this.style.opacity='1'; this.previousElementSibling?.classList.add('opacity-0')"
+      onerror="this.onerror=null; this.src='/images/placeholder.jpg';"
+    />
+  </div>
+</div>
+
+<style>
+  .image-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .image-wrapper img {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .image-wrapper img[aria-hidden="true"] {
+    transition: opacity 0.3s ease-in-out;
+  }
+</style>

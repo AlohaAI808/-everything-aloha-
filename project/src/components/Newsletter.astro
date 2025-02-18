@@ -1,0 +1,105 @@
+---
+interface Props {
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  title = "Stay Updated",
+  subtitle = "Get the latest Hawaii travel tips and exclusive offers delivered to your inbox."
+} = Astro.props;
+---
+
+<section class="bg-blue-50 py-12">
+  <div class="container mx-auto px-4 max-w-xl">
+    <div class="text-center mb-6">
+      <h2 class="text-2xl font-bold text-blue-900 mb-2">{title}</h2>
+      <p class="text-gray-600">{subtitle}</p>
+    </div>
+    
+    <form
+      name="newsletter"
+      method="POST"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      class="space-y-4"
+    >
+      {/* Required hidden input for Netlify forms */}
+      <input type="hidden" name="form-name" value="newsletter" />
+      
+      <p class="hidden">
+        <label>
+          Don't fill this out if you're human: <input name="bot-field" />
+        </label>
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4">
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+          class="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+        />
+        <button 
+          type="submit"
+          class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Subscribe
+        </button>
+      </div>
+
+      <div id="newsletter-message" class="text-sm hidden">
+        <p class="success text-green-600 hidden">Thanks for subscribing!</p>
+        <p class="error text-red-600 hidden">Subscription failed. Please try again.</p>
+      </div>
+    </form>
+  </div>
+</section>
+
+<script>
+  const forms = document.querySelectorAll('form[name="newsletter"]');
+  
+  forms.forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const button = form.querySelector('button[type="submit"]');
+      const messageDiv = form.querySelector('#newsletter-message');
+      const successMessage = messageDiv?.querySelector('.success');
+      const errorMessage = messageDiv?.querySelector('.error');
+      
+      try {
+        if (button) button.disabled = true;
+        
+        const formData = new FormData(form);
+        
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString()
+        });
+
+        if (!response.ok) {
+          throw new Error('Submission failed');
+        }
+
+        // Show success message
+        form.reset();
+        messageDiv?.classList.remove('hidden');
+        successMessage?.classList.remove('hidden');
+        errorMessage?.classList.add('hidden');
+        
+      } catch (error) {
+        console.error('Newsletter submission error:', error);
+        messageDiv?.classList.remove('hidden');
+        errorMessage?.classList.remove('hidden');
+        successMessage?.classList.add('hidden');
+      } finally {
+        if (button) {
+          button.disabled = false;
+        }
+      }
+    });
+  });
+</script>

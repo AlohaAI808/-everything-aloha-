@@ -1,0 +1,106 @@
+---
+import IslandLayout from '../../layouts/IslandLayout.astro';
+
+const highlights = [
+  {
+    title: "Na Pali Coast",
+    description: "Marvel at the dramatic cliffs and valleys along this 17-mile coastline, accessible by boat or helicopter.",
+    image: "https://images.unsplash.com/photo-1505852679233-d9fd70aff56d?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    title: "Waimea Canyon",
+    description: "Explore the 'Grand Canyon of the Pacific' with its stunning red rocks and cascading waterfalls.",
+    image: "https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    title: "Hanalei Bay",
+    description: "Relax at this crescent-shaped bay surrounded by mountains and waterfalls.",
+    image: "https://images.unsplash.com/photo-1505852679233-d9fd70aff56d?auto=format&fit=crop&w=800&q=80"
+  }
+];
+---
+
+<IslandLayout
+  title="Kauai - The Garden Isle | Everything Aloha"
+  heroImage="https://images.unsplash.com/photo-1505852679233-d9fd70aff56d?auto=format&fit=crop&w=2000&q=80"
+  heroTitle="Welcome to Kauai"
+  heroSubtitle="Discover nature's masterpiece"
+>
+  <div class="max-w-4xl mx-auto">
+    <section class="mb-16">
+      <div class="prose lg:prose-lg">
+        <h1 class="text-3xl font-bold mb-6 text-blue-900">Welcome to Gateway to Aloha - Kauai</h1>
+        
+        <p>Aloha and welcome to the Kauai page of Gateway to Aloha! My name is Emerson, and I am the creator and visionary behind this website. My journey with Hawaii started on Oahu, where I grew up immersed in the rich culture and natural beauty of these islands. After traveling to the mainland for education and adventure, I returned to Hawaii and have made Kauai my home for the last 23 years.</p>
+
+        <p>Kauai, known as the Garden Isle, holds a special place in my heart. It is a land of lush rainforests, dramatic cliffs, golden beaches, and a profound sense of peace that touches everyone who visits. I've spent my life exploring this island and all the Hawaiian Islands, and I've built a deep knowledge base and an enduring passion for sharing the beauty, magic, and aloha spirit of Hawaii.</p>
+
+        <p>Gateway to Aloha was born from my love for Hawaii and my desire to create a space where visitors can learn about these islands and discover curated deals on luxury resorts, vacation experiences, and adventures. Whether you're planning your first trip or your tenth, I want Gateway to Aloha to be your trusted guide to exploring Hawaii in ways that leave you enchanted and inspired.</p>
+
+        <p>I believe Hawaii is a place where magic still exists. Over the years, I've witnessed countless moments of wonder—from vibrant sunsets painting the skies to the healing touch of the ocean breeze. If you come to these islands with great respect and an open heart, you just might experience the magic too.</p>
+
+        <p>Let this page be your starting point to explore Kauai's breathtaking landscapes, rich cultural heritage, and unforgettable adventures. Gateway to Aloha is here to help you create memories that last a lifetime while honoring the spirit and beauty of Hawaii.</p>
+
+        <p>Mahalo for letting me share my vision with you, and I hope you find your perfect slice of aloha here on Kauai and beyond.</p>
+
+        <p class="text-right">Mahalo and Aloha,<br>Emerson</p>
+      </div>
+
+      <div class="text-center mt-8">
+        <a 
+          href="/blog"
+          class="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          Explore Kauai Travel Guides, Activities, Resorts & Dining
+        </a>
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 text-blue-900">Island Highlights</h2>
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {highlights.map(highlight => (
+          <div class="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 hover:shadow-xl">
+            <div class="relative h-48 bg-blue-50">
+              <div class="absolute inset-0 animate-pulse"></div>
+              <img 
+                src={highlight.image} 
+                alt={highlight.title}
+                class="w-full h-full object-cover"
+                loading="lazy"
+                onload="this.parentElement.querySelector('.animate-pulse').style.display='none'"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <h3 class="absolute bottom-4 left-4 text-xl font-semibold text-white drop-shadow-lg">
+                {highlight.title}
+              </h3>
+            </div>
+            <div class="p-6">
+              <p class="text-gray-600">{highlight.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-3xl font-bold mb-6 text-blue-900">Plan Your Visit</h2>
+      <div class="bg-blue-50 p-8 rounded-xl shadow-inner">
+        <h3 class="text-xl font-semibold mb-4 text-blue-900">Travel Tips</h3>
+        <ul class="space-y-4">
+          {[
+            "Book Na Pali Coast tours in advance",
+            "Visit Waimea Canyon early morning for best views",
+            "Pack rain gear - weather can change quickly",
+            "Consider helicopter tours for spectacular aerial views"
+          ].map(tip => (
+            <li class="flex items-start space-x-3">
+              <span class="text-blue-500 mt-1">✓</span>
+              <span class="text-gray-700">{tip}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </div>
+</IslandLayout>

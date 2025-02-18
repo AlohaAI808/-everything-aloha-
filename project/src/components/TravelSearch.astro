@@ -1,0 +1,337 @@
+---
+import AirportAutocomplete from './AirportAutocomplete.astro';
+---
+
+<div class="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-6">
+  <!-- Tab Navigation -->
+  <div class="flex space-x-4 mb-6">
+    <button 
+      class="tab-button px-4 py-2 rounded-lg font-medium transition-colors"
+      data-tab="flights"
+      data-active="true"
+    >
+      ✈️ Flights
+    </button>
+    <button 
+      class="tab-button px-4 py-2 rounded-lg font-medium transition-colors"
+      data-tab="hotels"
+      data-active="false"
+    >
+      🏨 Hotels
+    </button>
+    <button 
+      class="tab-button px-4 py-2 rounded-lg font-medium transition-colors"
+      data-tab="cars"
+      data-active="false"
+    >
+      🚗 Cars
+    </button>
+  </div>
+
+  <!-- Flights Search -->
+  <div class="tab-content" data-tab="flights" data-active="true">
+    <form id="flight-search-form" class="space-y-4">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <AirportAutocomplete
+          id="origin-airport"
+          name="origin"
+          label="From"
+          placeholder="Enter city or airport"
+          required={true}
+        />
+        
+        <AirportAutocomplete
+          id="destination-airport"
+          name="destination"
+          label="To"
+          placeholder="Select Hawaiian airport"
+          required={true}
+          hawaiianOnly={true}
+        />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Departure</label>
+          <input 
+            type="date" 
+            name="departure"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+            required
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Return</label>
+          <input 
+            type="date" 
+            name="return"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Cabin</label>
+          <select 
+            name="cabin"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          >
+            <option value="economy">Economy</option>
+            <option value="premium">Premium Economy</option>
+            <option value="business">Business</option>
+            <option value="first">First</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Passengers</label>
+          <input 
+            type="number" 
+            name="passengers"
+            min="1"
+            value="1"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          />
+        </div>
+        <div class="flex items-center">
+          <label class="flex items-center space-x-2 cursor-pointer">
+            <input type="checkbox" name="hawaiian-pref" class="rounded text-blue-600 focus:ring-blue-500" />
+            <span class="text-sm text-gray-700">Prefer Hawaiian Airlines</span>
+          </label>
+        </div>
+      </div>
+
+      <button 
+        type="submit"
+        class="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+      >
+        Search Flights
+      </button>
+    </form>
+  </div>
+
+  <!-- Hotels Search -->
+  <div class="tab-content hidden" data-tab="hotels" data-active="false">
+    <form id="hotel-search-form" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Destination</label>
+        <select 
+          name="destination"
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          required
+        >
+          <option value="">Select destination</option>
+          <option value="Honolulu">Honolulu, Oahu</option>
+          <option value="Lahaina">Lahaina, Maui</option>
+          <option value="Kailua-Kona">Kailua-Kona, Big Island</option>
+          <option value="Lihue">Lihue, Kauai</option>
+        </select>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Check-in</label>
+          <input 
+            type="date" 
+            name="checkin"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+            required
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Check-out</label>
+          <input 
+            type="date" 
+            name="checkout"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+            required
+          />
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Guests</label>
+          <input 
+            type="number" 
+            name="group_adults"
+            min="1"
+            value="2"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Rooms</label>
+          <input 
+            type="number" 
+            name="no_rooms"
+            min="1"
+            value="1"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+          />
+        </div>
+      </div>
+
+      <button 
+        type="submit"
+        class="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+      >
+        Search Hotels
+      </button>
+    </form>
+  </div>
+
+  <!-- Cars Search -->
+  <div class="tab-content hidden" data-tab="cars" data-active="false">
+    <form id="car-search-form" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Pick-up Location</label>
+        <AirportAutocomplete
+          id="pickup-airport"
+          name="pickup_location"
+          label="Pick-up Location"
+          placeholder="Select Hawaiian airport"
+          required={true}
+          hawaiianOnly={true}
+        />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Pick-up Date</label>
+          <input 
+            type="date" 
+            name="pickup_date"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+            required
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Drop-off Date</label>
+          <input 
+            type="date" 
+            name="dropoff_date"
+            class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+            required
+          />
+        </div>
+      </div>
+
+      <button 
+        type="submit"
+        class="w-full px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+      >
+        Search Cars
+      </button>
+    </form>
+  </div>
+</div>
+
+<style>
+  .tab-button[data-active="true"] {
+    @apply bg-blue-600 text-white;
+  }
+  .tab-button[data-active="false"] {
+    @apply text-gray-600 hover:bg-blue-50;
+  }
+</style>
+
+<script>
+  const tabButtons = document.querySelectorAll('.tab-button');
+  const tabContents = document.querySelectorAll('.tab-content');
+  const forms = {
+    flights: document.getElementById('flight-search-form'),
+    hotels: document.getElementById('hotel-search-form'),
+    cars: document.getElementById('car-search-form')
+  };
+
+  // Set minimum dates for all date inputs to today
+  const today = new Date().toISOString().split('T')[0];
+  document.querySelectorAll('input[type="date"]').forEach(input => {
+    input.min = today;
+  });
+
+  // Tab switching logic
+  tabButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const tab = button.getAttribute('data-tab');
+      
+      tabButtons.forEach(btn => {
+        btn.setAttribute('data-active', btn === button ? 'true' : 'false');
+      });
+      
+      tabContents.forEach(content => {
+        const isActive = content.getAttribute('data-tab') === tab;
+        content.classList.toggle('hidden', !isActive);
+        content.setAttribute('data-active', isActive ? 'true' : 'false');
+      });
+    });
+  });
+
+  // Form submission handlers
+  Object.entries(forms).forEach(([type, form]) => {
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target as HTMLFormElement);
+
+      // Format dates for URLs (YYYY-MM-DD)
+      const formatDate = (dateStr: string) => {
+        const date = new Date(dateStr);
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+      };
+
+      // Format dates for display (MM/DD/YYYY)
+      const formatDisplayDate = (dateStr: string) => {
+        const date = new Date(dateStr);
+        return `${String(date.getMonth() + 1).padStart(2, '0')}/${String(date.getDate()).padStart(2, '0')}/${date.getFullYear()}`;
+      };
+
+      let partnerUrl = '';
+      
+      switch(type) {
+        case 'flights':
+          const origin = formData.get('origin')?.toString().split('(').pop()?.replace(')', '') || '';
+          const dest = formData.get('destination')?.toString().split('(').pop()?.replace(')', '') || '';
+          const depart = formData.get('departure')?.toString();
+          const returnDate = formData.get('return')?.toString();
+          const cabin = formData.get('cabin')?.toString();
+          const passengers = formData.get('passengers')?.toString();
+          
+          if (formData.get('hawaiian-pref') === 'on') {
+            // Hawaiian Airlines URL format
+            partnerUrl = `https://www.hawaiianairlines.com/book/flights?origin=${origin}&destination=${dest}&departureDate=${formatDisplayDate(depart)}&returnDate=${formatDisplayDate(returnDate)}&cabin=${cabin}&adultCount=${passengers}`;
+          } else {
+            // Google Flights URL format
+            partnerUrl = `https://www.google.com/travel/flights?q=Flights%20to%20${dest}%20from%20${origin}%20on%20${formatDate(depart)}%20through%20${formatDate(returnDate)}`;
+          }
+          break;
+
+        case 'hotels':
+          const location = formData.get('destination')?.toString();
+          const checkin = formData.get('checkin')?.toString();
+          const checkout = formData.get('checkout')?.toString();
+          const adults = formData.get('group_adults')?.toString();
+          const rooms = formData.get('no_rooms')?.toString();
+
+          // Booking.com URL format
+          partnerUrl = `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(location + ', Hawaii')}&checkin=${formatDate(checkin)}&checkout=${formatDate(checkout)}&group_adults=${adults}&no_rooms=${rooms}&selected_currency=USD`;
+          break;
+
+        case 'cars':
+          const airport = formData.get('pickup_location')?.toString().split('(').pop()?.replace(')', '') || '';
+          const pickupDate = formData.get('pickup_date')?.toString();
+          const dropoffDate = formData.get('dropoff_date')?.toString();
+
+          // Expedia car rental URL format
+          partnerUrl = `https://www.expedia.com/carsearch?locn=${encodeURIComponent(airport)}&pickupDate=${formatDate(pickupDate)}&dropoffDate=${formatDate(dropoffDate)}&d1=${formatDate(pickupDate)}&d2=${formatDate(dropoffDate)}`;
+          break;
+      }
+
+      // Open in new tab
+      if (partnerUrl) {
+        window.open(partnerUrl, '_blank');
+      }
+    });
+  });
+</script>

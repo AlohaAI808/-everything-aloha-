@@ -1,0 +1,90 @@
+---
+interface ComparisonItem {
+  name: string;
+  price: string;
+  features: string[];
+  pros: string[];
+  cons: string[];
+  rating: number;
+  link: string;
+}
+
+interface Props {
+  title: string;
+  items: ComparisonItem[];
+}
+
+const { title, items } = Astro.props;
+---
+
+<section class="py-12">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-12">{title}</h2>
+    
+    <div class="overflow-x-auto">
+      <table class="w-full bg-white rounded-xl shadow-lg">
+        <thead>
+          <tr class="bg-blue-900 text-white">
+            <th class="px-6 py-4 text-left">Product</th>
+            <th class="px-6 py-4 text-left">Price</th>
+            <th class="px-6 py-4 text-left">Key Features</th>
+            <th class="px-6 py-4 text-left">Pros</th>
+            <th class="px-6 py-4 text-left">Cons</th>
+            <th class="px-6 py-4 text-left">Rating</th>
+            <th class="px-6 py-4"></th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-200">
+          {items.map(item => (
+            <tr class="hover:bg-blue-50 transition-colors">
+              <td class="px-6 py-4 font-semibold">{item.name}</td>
+              <td class="px-6 py-4 text-blue-600 font-bold">{item.price}</td>
+              <td class="px-6 py-4">
+                <ul class="list-disc list-inside text-sm">
+                  {item.features.map(feature => (
+                    <li>{feature}</li>
+                  ))}
+                </ul>
+              </td>
+              <td class="px-6 py-4">
+                <ul class="list-disc list-inside text-sm text-green-600">
+                  {item.pros.map(pro => (
+                    <li>{pro}</li>
+                  ))}
+                </ul>
+              </td>
+              <td class="px-6 py-4">
+                <ul class="list-disc list-inside text-sm text-red-600">
+                  {item.cons.map(con => (
+                    <li>{con}</li>
+                  ))}
+                </ul>
+              </td>
+              <td class="px-6 py-4">
+                <div class="flex text-yellow-400">
+                  {Array(5).fill(null).map((_, i) => (
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      class={`h-5 w-5 ${i < item.rating ? 'fill-current' : 'fill-gray-300'}`}
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <a 
+                  href={item.link}
+                  class="inline-block px-6 py-2 bg-blue-600 text-white text-sm rounded-full hover:bg-blue-700 transition-colors"
+                >
+                  Check Price
+                </a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

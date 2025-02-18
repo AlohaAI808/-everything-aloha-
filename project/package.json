@@ -1,0 +1,21 @@
+{
+  "name": "gateway-to-aloha",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "^4.0.3",
+    "@astrojs/tailwind": "^5.0.3",
+    "tailwindcss": "^3.4.0",
+    "@tailwindcss/typography": "^0.5.10",
+    "@tailwindcss/line-clamp": "^0.4.4",
+    "web-vitals": "^3.5.0"
+  }
+}

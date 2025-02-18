@@ -1,0 +1,58 @@
+---
+interface Props {
+  label: string;
+  name: string;
+  type?: 'text' | 'email' | 'tel' | 'number' | 'date' | 'textarea' | 'select';
+  required?: boolean;
+  placeholder?: string;
+  options?: Array<{ value: string; label: string }>;
+  className?: string;
+}
+
+const {
+  label,
+  name,
+  type = 'text',
+  required = false,
+  placeholder = '',
+  options = [],
+  className = ''
+} = Astro.props;
+
+const baseInputStyles = "w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200";
+---
+
+<div class={className}>
+  <label class="block text-sm font-medium text-gray-700 mb-1">
+    {label}{required && <span class="text-red-500">*</span>}
+  </label>
+
+  {type === 'textarea' ? (
+    <textarea
+      name={name}
+      required={required}
+      placeholder={placeholder}
+      class={baseInputStyles}
+      rows={4}
+    ></textarea>
+  ) : type === 'select' ? (
+    <select
+      name={name}
+      required={required}
+      class={baseInputStyles}
+    >
+      <option value="">{placeholder || 'Select an option'}</option>
+      {options.map(option => (
+        <option value={option.value}>{option.label}</option>
+      ))}
+    </select>
+  ) : (
+    <input
+      type={type}
+      name={name}
+      required={required}
+      placeholder={placeholder}
+      class={baseInputStyles}
+    />
+  )}
+</div>

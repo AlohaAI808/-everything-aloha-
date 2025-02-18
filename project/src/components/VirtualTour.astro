@@ -1,0 +1,111 @@
+---
+---
+<div class="relative w-full h-[600px] rounded-xl overflow-hidden shadow-lg mb-12">
+  <div id="virtual-tour" class="w-full h-full"></div>
+  
+  <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-4">
+    <h3 class="text-lg font-semibold mb-2">Virtual Island Tour</h3>
+    <p class="text-sm text-gray-600">Experience Hawaii's beauty in 360°. Use your mouse or touch to explore.</p>
+  </div>
+</div>
+
+<script>
+import * as THREE from 'three';
+
+let camera, scene, renderer;
+let isUserInteracting = false;
+let onPointerDownMouseX = 0, onPointerDownMouseY = 0;
+let lon = 0, onPointerDownLon = 0;
+let lat = 0, onPointerDownLat = 0;
+let phi = 0, theta = 0;
+
+init();
+animate();
+
+function init() {
+  const container = document.getElementById('virtual-tour');
+  
+  camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 1, 1100);
+  scene = new THREE.Scene();
+
+  const geometry = new THREE.SphereGeometry(500, 60, 40);
+  geometry.scale(-1, 1, 1);
+
+  const texture = new THREE.TextureLoader().load('/images/hero-bg.jpg');
+  const material = new THREE.MeshBasicMaterial({ map: texture });
+  const mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
+
+  renderer = new THREE.WebGLRenderer();
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  container.appendChild(renderer.domElement);
+
+  container.addEventListener('mousedown', onPointerDown);
+  container.addEventListener('mousemove', onPointerMove);
+  container.addEventListener('mouseup', onPointerUp);
+  container.addEventListener('wheel', onDocumentWheel);
+  container.addEventListener('touchstart', onPointerDown);
+  container.addEventListener('touchmove', onPointerMove);
+  container.addEventListener('touchend', onPointerUp);
+
+  window.addEventListener('resize', onWindowResize);
+}
+
+function onWindowResize() {
+  const container = document.getElementById('virtual-tour');
+  camera.aspect = container.clientWidth / container.clientHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(container.clientWidth, container.clientHeight);
+}
+
+function onPointerDown(event) {
+  isUserInteracting = true;
+  
+  const clientX = event.clientX ?? event.touches[0].clientX;
+  const clientY = event.clientY ?? event.touches[0].clientY;
+
+  onPointerDownMouseX = clientX;
+  onPointerDownMouseY = clientY;
+  onPointerDownLon = lon;
+  onPointerDownLat = lat;
+}
+
+function onPointerMove(event) {
+  if (!isUserInteracting) return;
+
+  const clientX = event.clientX ?? event.touches[0].clientX;
+  const clientY = event.clientY ?? event.touches[0].clientY;
+
+  lon = (onPointerDownMouseX - clientX) * 0.1 + onPointerDownLon;
+  lat = (clientY - onPointerDownMouseY) * 0.1 + onPointerDownLat;
+}
+
+function onPointerUp() {
+  isUserInteracting = false;
+}
+
+function onDocumentWheel(event) {
+  const fov = camera.fov + event.deltaY * 0.05;
+  camera.fov = THREE.MathUtils.clamp(fov, 30, 90);
+  camera.updateProjectionMatrix();
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  update();
+}
+
+function update() {
+  lat = Math.max(-85, Math.min(85, lat));
+  phi = THREE.MathUtils.degToRad(90 - lat);
+  theta = THREE.MathUtils.degToRad(lon);
+
+  camera.position.x = 100 * Math.sin(phi) * Math.cos(theta);
+  camera.position.y = 100 * Math.cos(phi);
+  camera.position.z = 100 * Math.sin(phi) * Math.sin(theta);
+
+  camera.lookAt(scene.position);
+  renderer.render(scene, camera);
+}
+</script>

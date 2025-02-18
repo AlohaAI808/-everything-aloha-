@@ -1,0 +1,60 @@
+---
+---
+<div class="relative w-full h-[500px] rounded-xl overflow-hidden shadow-lg mb-12">
+  <div id="map" class="w-full h-full"></div>
+  
+  <div class="absolute top-4 right-4 bg-white rounded-lg shadow-md p-4 z-10">
+    <h3 class="text-sm font-semibold mb-2">Island Selection</h3>
+    <div class="space-y-2">
+      <button class="island-btn" data-island="oahu">Oahu</button>
+      <button class="island-btn" data-island="maui">Maui</button>
+      <button class="island-btn" data-island="kauai">Kauai</button>
+      <button class="island-btn" data-island="bigIsland">Big Island</button>
+    </div>
+  </div>
+</div>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script>
+  import L from 'leaflet';
+
+  // Initialize map
+  const map = L.map('map').setView([20.7984, -156.9067], 7);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  // Island coordinates
+  const islands = {
+    oahu: { lat: 21.4389, lng: -158.0001, zoom: 10 },
+    maui: { lat: 20.7984, lng: -156.3319, zoom: 10 },
+    kauai: { lat: 22.0964, lng: -159.5261, zoom: 10 },
+    bigIsland: { lat: 19.5429, lng: -155.6659, zoom: 9 }
+  };
+
+  // Add markers for each island
+  Object.entries(islands).forEach(([name, coords]) => {
+    L.marker([coords.lat, coords.lng])
+      .bindPopup(`<b>${name.charAt(0).toUpperCase() + name.slice(1)}</b><br>Click to explore`)
+      .addTo(map);
+  });
+
+  // Handle island selection
+  document.querySelectorAll('.island-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const island = btn.dataset.island;
+      const coords = islands[island];
+      map.setView([coords.lat, coords.lng], coords.zoom, {
+        animate: true,
+        duration: 1
+      });
+    });
+  });
+</script>
+
+<style>
+  .island-btn {
+    @apply block w-full px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded transition-colors;
+  }
+</style>

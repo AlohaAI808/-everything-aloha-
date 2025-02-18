@@ -1,0 +1,26 @@
+---
+import PageLayout from './PageLayout.astro';
+import Newsletter from '../components/Newsletter.astro';
+import type { MetaProps } from '../types/seo';
+
+interface Props extends MetaProps {
+  publishedDate?: string;
+  modifiedDate?: string;
+  author?: string;
+}
+
+const { publishedDate, modifiedDate, author, ...rest } = Astro.props;
+---
+
+<PageLayout 
+  {...rest}
+  type="article"
+  publishedDate={publishedDate}
+  modifiedDate={modifiedDate}
+  author={author}
+>
+  <article class="container mx-auto px-4">
+    <slot />
+  </article>
+  <Newsletter />
+</PageLayout>

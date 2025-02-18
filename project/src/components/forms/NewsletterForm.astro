@@ -1,0 +1,84 @@
+---
+import Button from '../common/Button.astro';
+import { FORM_CONFIG } from '../../config/constants';
+
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+const { newsletter } = FORM_CONFIG;
+---
+
+<form
+  name={newsletter.formName}
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  class={`space-y-4 ${className}`}
+>
+  <p class="hidden">
+    <label>
+      Don't fill this out if you're human: <input name="bot-field" />
+    </label>
+  </p>
+
+  <div class="flex flex-col sm:flex-row gap-4">
+    <input
+      type="email"
+      name="email"
+      placeholder="Enter your email"
+      required
+      class="flex-1 px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+    />
+    <Button type="submit" variant="primary">
+      Subscribe
+    </Button>
+  </div>
+
+  <div id="newsletter-message" class="text-sm hidden">
+    <p class="success text-green-600 hidden">{newsletter.successMessage}</p>
+    <p class="error text-red-600 hidden">{newsletter.errorMessage}</p>
+  </div>
+</form>
+
+<script>
+  import { subscribeToNewsletter } from '../../services/forms/newsletter';
+
+  const forms = document.querySelectorAll<HTMLFormElement>(`form[name="${FORM_CONFIG.newsletter.formName}"]`);
+
+  forms.forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const button = form.querySelector('button[type="submit"]');
+      const messageDiv = form.querySelector('#newsletter-message');
+      const successMessage = messageDiv?.querySelector('.success');
+      const errorMessage = messageDiv?.querySelector('.error');
+      
+      try {
+        if (button) button.disabled = true;
+        
+        const formData = new FormData(form);
+        const email = formData.get('email') as string;
+        
+        const success = await subscribeToNewsletter({ email });
+        
+        if (success) {
+          form.reset();
+          messageDiv?.classList.remove('hidden');
+          successMessage?.classList.remove('hidden');
+          errorMessage?.classList.add('hidden');
+        } else {
+          throw new Error('Subscription failed');
+        }
+      } catch (error) {
+        messageDiv?.classList.remove('hidden');
+        errorMessage?.classList.remove('hidden');
+        successMessage?.classList.add('hidden');
+      } finally {
+        if (button) button.disabled = false;
+      }
+    });
+  });
+</script>

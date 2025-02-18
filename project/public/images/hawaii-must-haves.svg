@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+    <!-- Background -->
+    <rect width="800" height="400" fill="#f0f9ff"/>
+    
+    <!-- Gradient Overlay -->
+    <defs>
+        <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#f0f9ff;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#bae6fd;stop-opacity:0.3" />
+        </linearGradient>
+    </defs>
+    <rect width="800" height="400" fill="url(#backgroundGradient)"/>
+
+    <!-- First Hawaiian Shirt -->
+    <g transform="translate(100,100)">
+        <!-- Shirt Base -->
+        <path d="M0 0 L120 0 L140 180 L-20 180 Z" fill="#ef4444"/>
+        <!-- Collar -->
+        <path d="M0 0 L30 40 L60 0 Z" fill="#fee2e2"/>
+        <path d="M60 0 L90 40 L120 0 Z" fill="#fee2e2"/>
+        <!-- Hibiscus Pattern -->
+        <circle cx="30" cy="60" r="15" fill="#fef9c3"/>
+        <circle cx="90" cy="60" r="15" fill="#fef9c3"/>
+        <circle cx="60" cy="90" r="15" fill="#fef9c3"/>
+        <circle cx="30" cy="120" r="15" fill="#fef9c3"/>
+        <circle cx="90" cy="120" r="15" fill="#fef9c3"/>
+        <!-- Pattern Details -->
+        <path d="M30 50 Q 35 55 30 60 Q 25 65 30 70" fill="none" stroke="#059669" stroke-width="2"/>
+        <path d="M90 50 Q 95 55 90 60 Q 85 65 90 70" fill="none" stroke="#059669" stroke-width="2"/>
+        <path d="M60 80 Q 65 85 60 90 Q 55 95 60 100" fill="none" stroke="#059669" stroke-width="2"/>
+    </g>
+
+    <!-- Second Hawaiian Shirt -->
+    <g transform="translate(340,100)">
+        <!-- Shirt Base -->
+        <path d="M0 0 L120 0 L140 180 L-20 180 Z" fill="#0ea5e9"/>
+        <!-- Collar -->
+        <path d="M0 0 L30 40 L60 0 Z" fill="#e0f2fe"/>
+        <path d="M60 0 L90 40 L120 0 Z" fill="#e0f2fe"/>
+        <!-- Palm Leaf Pattern -->
+        <path d="M30 60 Q 45 70 30 80 Q 15 90 30 100" fill="none" stroke="#15803d" stroke-width="3"/>
+        <path d="M90 60 Q 105 70 90 80 Q 75 90 90 100" fill="none" stroke="#15803d" stroke-width="3"/>
+        <path d="M60 90 Q 75 100 60 110 Q 45 120 60 130" fill="none" stroke="#15803d" stroke-width="3"/>
+        <!-- Additional Pattern Elements -->
+        <circle cx="30" cy="120" r="10" fill="#fef08a"/>
+        <circle cx="90" cy="120" r="10" fill="#fef08a"/>
+    </g>
+
+    <!-- Third Hawaiian Shirt -->
+    <g transform="translate(580,100)">
+        <!-- Shirt Base -->
+        <path d="M0 0 L120 0 L140 180 L-20 180 Z" fill="#f97316"/>
+        <!-- Collar -->
+        <path d="M0 0 L30 40 L60 0 Z" fill="#ffedd5"/>
+        <path d="M60 0 L90 40 L120 0 Z" fill="#ffedd5"/>
+        <!-- Plumeria Pattern -->
+        <g transform="translate(30,60)">
+            <path d="M0 0 L10 15 L0 30 L-10 15 Z" fill="#fef9c3"/>
+            <circle cx="0" cy="15" r="5" fill="#fef08a"/>
+        </g>
+        <g transform="translate(90,60)">
+            <path d="M0 0 L10 15 L0 30 L-10 15 Z" fill="#fef9c3"/>
+            <circle cx="0" cy="15" r="5" fill="#fef08a"/>
+        </g>
+        <g transform="translate(60,90)">
+            <path d="M0 0 L10 15 L0 30 L-10 15 Z" fill="#fef9c3"/>
+            <circle cx="0" cy="15" r="5" fill="#fef08a"/>
+        </g>
+    </g>
+
+    <!-- Title Text -->
+    <g transform="translate(400,350)">
+        <!-- Background for text -->
+        <rect x="-300" y="-40" width="600" height="60" fill="rgba(255,255,255,0.9)" rx="10"/>
+        <!-- Title -->
+        <text x="0" y="0" font-family="Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#0c4a6e">Top 10 Travel Must-Haves When Traveling to Hawaii</text>
+    </g>
+
+    <!-- Decorative Elements -->
+    <circle cx="50" cy="50" r="20" fill="#fcd34d" opacity="0.3"/>
+    <circle cx="750" cy="50" r="20" fill="#fcd34d" opacity="0.3"/>
+</svg>

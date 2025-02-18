@@ -1,0 +1,71 @@
+---
+interface LuxuryFeature {
+  title: string;
+  description: string;
+  icon: string;
+}
+
+const luxuryFeatures: LuxuryFeature[] = [
+  {
+    title: "Curated Resort Recommendations",
+    description: "Expert guidance on choosing the perfect luxury resort for your Hawaiian vacation",
+    icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+  },
+  {
+    title: "Local Travel Tips",
+    description: "Insider knowledge to help you experience the best of Hawaii like a local",
+    icon: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+  },
+  {
+    title: "Smart Luxury Strategies",
+    description: "Expert advice on how to experience luxury Hawaii for less",
+    icon: "M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+  }
+];
+---
+
+<section class="py-16 bg-gradient-to-b from-white to-gray-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-bold text-blue-900 mb-4">Expert Hawaii Travel Guidance</h2>
+      <p class="text-gray-600 max-w-2xl mx-auto">
+        Let us help you plan your perfect Hawaiian vacation with our expert recommendations and local insights.
+      </p>
+    </div>
+
+    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      {luxuryFeatures.map(feature => (
+        <a href="/blog" class="bg-white rounded-xl shadow-lg p-8 transform hover:scale-105 transition-all duration-300">
+          <div class="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center mb-6">
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              class="h-6 w-6 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path 
+                stroke-linecap="round" 
+                stroke-linejoin="round" 
+                stroke-width="2" 
+                d={feature.icon}
+              />
+            </svg>
+          </div>
+          
+          <h3 class="text-xl font-bold text-blue-900 mb-3">{feature.title}</h3>
+          <p class="text-gray-600">{feature.description}</p>
+        </a>
+      ))}
+    </div>
+
+    <div class="text-center mt-12">
+      <a 
+        href="/contact"
+        class="inline-block px-8 py-4 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-full font-semibold hover:from-amber-700 hover:to-amber-800 transition-all duration-300 transform hover:scale-105"
+      >
+        Get Personalized Recommendations
+      </a>
+    </div>
+  </div>
+</section>

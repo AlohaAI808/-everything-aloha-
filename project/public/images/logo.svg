@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer Circle -->
+  <circle cx="256" cy="256" r="250" fill="white"/>
+  
+  <!-- Ocean Stripes -->
+  <g>
+    <rect x="106" y="236" width="300" height="20" fill="#40E0D0"/>
+    <rect x="106" y="266" width="300" height="20" fill="#20B2AA"/>
+    <rect x="106" y="296" width="300" height="20" fill="#008B8B"/>
+  </g>
+
+  <!-- Hibiscus Flower -->
+  <path d="M256 156C256 156 196 196 196 256C196 316 256 356 256 356C256 356 316 316 316 256C316 196 256 156 256 156Z" fill="white"/>
+  <path d="M196 256C196 256 256 296 316 256" fill="white"/>
+  <path d="M256 156C256 156 216 216 256 276C296 216 256 156 256 156Z" fill="white"/>
+</svg>

@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .shadow-3xl {
+    --tw-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
+    --tw-shadow-colored: 0 35px 60px -15px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Image loading animation */
+img.loading {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(
+    to right,
+    #f6f7f8 0%,
+    #edeef1 20%,
+    #f6f7f8 40%,
+    #f6f7f8 100%
+  );
+  background-size: 800px 104px;
+}
+
+/* Logo specific styles */
+.logo-container img {
+  filter: drop-shadow(0 0 8px rgba(64, 224, 208, 0.5));
+}
+
+/* Logo hover animation */
+.logo-hover {
+  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.logo-hover:hover {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 0 12px rgba(64, 224, 208, 0.8));
+}

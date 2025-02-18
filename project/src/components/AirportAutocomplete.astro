@@ -1,0 +1,111 @@
+---
+interface Props {
+  id: string;
+  name: string;
+  label: string;
+  placeholder?: string;
+  required?: boolean;
+  hawaiianOnly?: boolean;
+}
+
+const { 
+  id, 
+  name, 
+  label, 
+  placeholder = "Enter city or airport code",
+  required = false,
+  hawaiianOnly = false
+} = Astro.props;
+---
+
+<div class="relative">
+  <label class="block text-sm font-medium text-gray-700 mb-1" for={id}>
+    {label}
+  </label>
+  <input 
+    type="text"
+    id={id}
+    name={name}
+    placeholder={placeholder}
+    required={required}
+    autocomplete="off"
+    class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+    data-hawaiian-only={hawaiianOnly}
+  />
+  <div 
+    id={`${id}-suggestions`}
+    class="absolute z-50 w-full mt-1 bg-white rounded-md shadow-lg hidden"
+  >
+    <ul class="max-h-60 rounded-md py-1 text-base overflow-auto focus:outline-none sm:text-sm">
+      <!-- Suggestions will be dynamically inserted here -->
+    </ul>
+  </div>
+</div>
+
+<script>
+  import { searchAirports, formatAirportDisplay, hawaiianAirports, allAirports } from '../utils/airports';
+
+  function initializeAutocomplete(input: HTMLInputElement) {
+    const suggestionsContainer = document.getElementById(`${input.id}-suggestions`);
+    const hawaiianOnly = input.dataset.hawaiianOnly === 'true';
+    
+    input.addEventListener('input', () => {
+      const query = input.value.trim();
+      if (query.length < 2) {
+        suggestionsContainer?.classList.add('hidden');
+        return;
+      }
+
+      const airports = searchAirports(query);
+      const filteredAirports = hawaiianOnly ? airports.filter(a => a.type === 'hawaiian') : airports;
+
+      if (suggestionsContainer && filteredAirports.length > 0) {
+        const suggestionsList = filteredAirports.map(airport => `
+          <li 
+            class="cursor-pointer select-none relative py-2 pl-3 pr-9 hover:bg-blue-50 text-gray-900"
+            data-code="${airport.code}"
+          >
+            <div class="flex items-center">
+              <span class="font-medium">${formatAirportDisplay(airport)}</span>
+            </div>
+            ${airport.type === 'hawaiian' ? `
+              <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-blue-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </span>
+            ` : ''}
+          </li>
+        `).join('');
+
+        suggestionsContainer.innerHTML = `<ul class="max-h-60 rounded-md py-1 text-base overflow-auto focus:outline-none sm:text-sm">${suggestionsList}</ul>`;
+        suggestionsContainer.classList.remove('hidden');
+
+        // Add click handlers to suggestions
+        suggestionsContainer.querySelectorAll('li').forEach(li => {
+          li.addEventListener('click', () => {
+            const airport = filteredAirports.find(a => a.code === li.dataset.code);
+            if (airport) {
+              input.value = formatAirportDisplay(airport);
+              suggestionsContainer.classList.add('hidden');
+            }
+          });
+        });
+      } else if (suggestionsContainer) {
+        suggestionsContainer.classList.add('hidden');
+      }
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!input.contains(e.target as Node) && !suggestionsContainer?.contains(e.target as Node)) {
+        suggestionsContainer?.classList.add('hidden');
+      }
+    });
+  }
+
+  // Initialize all airport autocomplete inputs
+  document.querySelectorAll('input[id$="-airport"]').forEach(input => {
+    initializeAutocomplete(input as HTMLInputElement);
+  });
+</script>

@@ -1,0 +1,104 @@
+---
+import { SITE_CONFIG } from '../config/constants';
+import type { MetaProps } from '../types/seo';
+import { generateMetaTags } from '../utils/seo/meta';
+import { generateSchema } from '../utils/seo/schema';
+
+interface Props extends MetaProps {
+  bodyClass?: string;
+}
+
+const { 
+  title,
+  description = SITE_CONFIG.description,
+  image,
+  type = 'website',
+  bodyClass = '',
+  ...rest
+} = Astro.props;
+
+const metaTags = generateMetaTags({ title, description, image, type, ...rest });
+const schema = generateSchema({ 
+  type, 
+  title, 
+  description, 
+  image,
+  url: new URL(Astro.url.pathname, SITE_CONFIG.baseUrl).toString()
+});
+
+// Critical domains that should be preconnected
+const criticalDomains = [
+  'https://images.unsplash.com',
+  'https://res.cloudinary.com',
+  'https://fonts.googleapis.com',
+  'https://fonts.gstatic.com'
+];
+
+// Critical resources that should be preloaded
+const criticalResources = [
+  { href: '/fonts/inter-var.woff2', as: 'font', type: 'font/woff2', crossorigin: true },
+  { href: '/images/logo.svg', as: 'image' }
+];
+
+// Get base URL from Astro
+const baseUrl = import.meta.env.BASE_URL || '/';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href={`${baseUrl}favicon.svg`} />
+    <meta name="generator" content={Astro.generator} />
+    
+    {/* Resource Hints - Preconnect */}
+    {criticalDomains.map(domain => (
+      <>
+        <link rel="preconnect" href={domain} crossorigin />
+        <link rel="dns-prefetch" href={domain} />
+      </>
+    ))}
+
+    {/* Preload Critical Resources */}
+    {criticalResources.map(resource => (
+      <link 
+        rel="preload" 
+        href={`${baseUrl}${resource.href.replace(/^\//, '')}`}
+        as={resource.as}
+        type={resource.type}
+        crossorigin={resource.crossorigin}
+      />
+    ))}
+    
+    {/* Primary Meta Tags */}
+    <title>{title} | {SITE_CONFIG.title}</title>
+    {metaTags.map(tag => <meta {...tag} />)}
+    
+    {/* Schema.org */}
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    
+    {/* Initialize Performance Monitoring */}
+    <script>
+      import { initializePerformanceMonitoring } from '../utils/performance';
+      document.addEventListener('DOMContentLoaded', initializePerformanceMonitoring);
+    </script>
+
+    {/* Prefetch Important Routes */}
+    <link rel="prefetch" href={`${baseUrl}blog`} />
+    <link rel="prefetch" href={`${baseUrl}islands/maui`} />
+    <link rel="prefetch" href={`${baseUrl}islands/oahu`} />
+    
+    {/* Preload Hero Image for Homepage */}
+    {Astro.url.pathname === '/' && (
+      <link 
+        rel="preload" 
+        as="image" 
+        href="https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=2000&q=80"
+      />
+    )}
+  </head>
+  <body class={bodyClass}>
+    <slot />
+  </body>
+</html>

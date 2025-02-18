@@ -1,0 +1,88 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import ContactForm from '../components/ContactForm.astro';
+import Newsletter from '../components/Newsletter.astro';
+
+const contactInfo = [
+  {
+    icon: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+    title: 'Email Us',
+    content: 'info@gatewaytoaloha.com',
+    link: 'mailto:info@gatewaytoaloha.com'
+  },
+  {
+    icon: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z',
+    title: 'Location',
+    content: 'Honolulu, Hawaii',
+    link: 'https://maps.google.com/?q=Honolulu,Hawaii'
+  }
+];
+---
+
+<Layout 
+  title="Contact Us | Gateway to Aloha"
+  description="Get in touch with Gateway to Aloha. We're here to help plan your perfect Hawaiian vacation."
+>
+  <Header />
+  
+  <main class="pt-24 pb-16">
+    <!-- Hero Section -->
+    <div class="relative h-[40vh] min-h-[300px] mb-12">
+      <div 
+        class="absolute inset-0 bg-cover bg-center"
+        style="background-image: url('https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=2000&q=80')"
+      >
+        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-black/20"></div>
+      </div>
+      <div class="relative container mx-auto px-4 h-full flex items-center">
+        <div class="max-w-2xl">
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+            Contact Us
+          </h1>
+          <p class="text-xl text-white/90">
+            Have questions about Hawaii? We're here to help make your island dreams come true.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container mx-auto px-4">
+      <!-- Contact Info Cards -->
+      <div class="grid gap-8 md:grid-cols-2 mb-12">
+        {contactInfo.map(info => (
+          <a
+            href={info.link}
+            class="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center transform hover:scale-105 transition-all duration-300"
+          >
+            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6 text-blue-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d={info.icon}
+                />
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{info.title}</h3>
+            <p class="text-gray-600">{info.content}</p>
+          </a>
+        ))}
+      </div>
+
+      <!-- Contact Form -->
+      <div class="max-w-2xl mx-auto">
+        <ContactForm />
+      </div>
+    </div>
+  </main>
+
+  <Newsletter />
+</Layout>

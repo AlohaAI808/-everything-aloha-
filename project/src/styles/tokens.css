@@ -1,0 +1,105 @@
+/* Gateway to Aloha - Modern Design Tokens */
+/* Luxury Hawaii. Local Secrets. */
+
+:root {
+  /* Brand Colors - Inspired by Hawaiian Paradise */
+  --color-ocean-deep: #0B4F6C;      /* Deep Pacific Blue */
+  --color-ocean-light: #20A4F3;     /* Bright Ocean Blue */
+  --color-lagoon: #5DFDCB;           /* Tropical Lagoon */
+  --color-palm: #2A7F62;            /* Lush Palm Green */
+  --color-forest: #1B5E3F;          /* Deep Forest Green */
+  --color-orchid: #8B5A8C;          /* Hawaiian Orchid Purple */
+  --color-sunset: #FF6B6B;          /* Hawaiian Sunset Coral */
+  --color-sand: #FFF8E7;            /* Warm Beach Sand */
+  --color-volcanic: #2C2C2C;        /* Volcanic Rock */
+  --color-pearl: #FFFFFF;           /* Pearl White */
+  
+  /* Semantic Colors */
+  --color-primary: var(--color-ocean-deep);
+  --color-primary-hover: var(--color-ocean-light);
+  --color-secondary: var(--color-orchid);
+  --color-accent: var(--color-lagoon);
+  --color-success: var(--color-palm);
+  --color-text-primary: var(--color-volcanic);
+  --color-text-secondary: #6B7280;
+  --color-background: var(--color-pearl);
+  --color-surface: var(--color-sand);
+  
+  /* Typography - Modern & Elegant */
+  --font-display: 'Cormorant Garamond', serif;  /* Luxury headings */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;  /* Clean body text */
+  
+  /* Font Sizes - Fluid Typography */
+  --text-xs: clamp(0.75rem, 1.5vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 2vw, 1rem);
+  --text-base: clamp(1rem, 2.5vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 3vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 3.5vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 4vw, 2rem);
+  --text-3xl: clamp(2rem, 5vw, 3rem);
+  --text-4xl: clamp(2.5rem, 6vw, 4rem);
+  --text-5xl: clamp(3rem, 7vw, 5rem);
+  
+  /* Font Weights */
+  --font-light: 300;
+  --font-regular: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+  
+  /* Spacing Scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  --space-4xl: 6rem;
+  --space-5xl: 8rem;
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+  
+  /* Shadows - Soft and Modern */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  --shadow-glow: 0 0 20px rgba(93, 253, 203, 0.3);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 350ms ease;
+  
+  /* Z-Index Scale */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  
+  /* Breakpoints for reference */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text-primary: var(--color-sand);
+    --color-text-secondary: #D1D5DB;
+    --color-background: var(--color-volcanic);
+    --color-surface: #3C3C3C;
+  }
+}

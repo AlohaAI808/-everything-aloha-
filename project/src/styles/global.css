@@ -1,4 +1,50 @@
-@tailwind base;
+/* Import our modern design tokens */
+@import './tokens.css';
+
+/* Import Google Fonts for our typography */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Global Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Heading styles using our luxury font */
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: var(--font-light);
+  line-height: 1.2;
+  color: var(--color-primary);
+}
+
+h3, h4, h5, h6 {
+  font-family: var(--font-body);
+  font-weight: var(--font-semibold);
+  color: var(--color-text-primary);
+}
+
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); }
+h5 { font-size: var(--text-lg); }
+h6 { font-size: var(--text-base); }
+/* Import our modern design tokens */
+@import './tokens.css';
+
+/* Import Google Fonts for our typography */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');@tailwind base;
 @tailwind components;
 @tailwind utilities;
 

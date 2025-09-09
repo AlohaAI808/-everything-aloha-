@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import IslandCard from '../components/IslandCard.astro';
+import SearchBar from '../components/SearchBar.astro';
+import SearchResults from '../components/SearchResults.astro';
+import Newsletter from '../components/Newsletter.astro';
+import WeatherWidget from '../components/WeatherWidget.astro';
+import LuxuryHighlights from '../components/LuxuryHighlights.astro';
+import { islands } from '../data/islands';
+---
+
+<Layout title="Gateway to Aloha - Hawaii Travel Guide">
+  <Header />
+  <Hero 
+    title="Experience Hawaii in Luxury"
+    subtitle="Discover the beauty of Hawaii with curated travel tips, guides, and exclusive affiliate deals for your perfect island adventure"
+  />
+  
+  <main class="container mx-auto px-4 py-16">
+    <WeatherWidget />
+    <SearchBar />
+    <SearchResults visible={false} />
+    
+    <section class="mb-16">
+      <h2 class="text-3xl font-bold text-center mb-4">Premium Island Destinations</h2>
+      <p class="text-gray-600 text-center mb-12">Discover luxury experiences across Hawaii's most beautiful islands</p>
+      
+      <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {islands.map(island => (
+          <div class="island-card">
+            <IslandCard {...island} />
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <LuxuryHighlights />
+  </main>
+
+  <Newsletter />
+</Layout>
+
+<style>
+  .island-card {
+    transition: all 0.3s ease-in-out;
+  }
+</style>
+
+<script>
+  let debounceTimeout: number;
+
+  function debounce(func: Function, wait: number) {
+    clearTimeout(debounceTimeout);
+    debounceTimeout = setTimeout(func, wait) as unknown as number;
+  }
+
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const resultsContainer = document.getElementById('results-container');
+  const searchResults = document.getElementById('search-results');
+
+  searchInput?.addEventListener('input', (e) => {
+    const searchTerm = (e.target as HTMLInputElement).value.toLowerCase();
+    
+    if (searchTerm.length >= 2) {
+      debounce(() => {
+        searchResults?.classList.remove('opacity-0', '-translate-y-4', 'pointer-events-none');
+        searchResults?.classList.add('opacity-100', 'translate-y-0');
+        
+        const islandCards = document.querySelectorAll('.island-card');
+        let matchFound = false;
+
+        if (resultsContainer) {
+          resultsContainer.innerHTML = '';
+          
+          islandCards.forEach((card) => {
+            const title = card.querySelector('h3')?.textContent?.toLowerCase() || '';
+            const description = card.querySelector('p')?.textContent?.toLowerCase() || '';
+            
+            if (title.includes(searchTerm) || description.includes(searchTerm)) {
+              matchFound = true;
+              const resultItem = document.createElement('div');
+              resultItem.className = 'p-4 hover:bg-blue-50 rounded-lg transition-colors duration-200';
+              resultItem.innerHTML = `
+                <h4 class="font-semibold text-blue-900">${card.querySelector('h3')?.textContent}</h4>
+                <p class="text-gray-600 text-sm">${card.querySelector('p')?.textContent}</p>
+              `;
+              resultsContainer.appendChild(resultItem);
+            }
+          });
+
+          if (!matchFound) {
+            resultsContainer.innerHTML = `
+              <div class="text-center py-8 text-gray-500">
+                No results found for "${searchTerm}"
+              </div>
+            `;
+          }
+        }
+      }, 300);
+    } else {
+      searchResults?.classList.remove('opacity-100', 'translate-y-0');
+      searchResults?.classList.add('opacity-0', '-translate-y-4', 'pointer-events-none');
+    }
+  });
+</script>

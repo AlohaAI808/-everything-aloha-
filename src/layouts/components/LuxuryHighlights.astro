@@ -1,0 +1,104 @@
+---
+// LuxuryHighlights.astro - Basic luxury highlights component
+const highlights = [
+  {
+    title: "Private Beach Access",
+    description: "Exclusive access to pristine, secluded beaches",
+    icon: "🏖️"
+  },
+  {
+    title: "Helicopter Tours",
+    description: "Breathtaking aerial views of volcanic landscapes",
+    icon: "🚁"
+  },
+  {
+    title: "Luxury Resorts",
+    description: "World-class accommodations with ocean views",
+    icon: "🏨"
+  },
+  {
+    title: "Private Dining",
+    description: "Exclusive culinary experiences with local chefs",
+    icon: "🍽️"
+  }
+];
+---
+
+<div class="luxury-highlights">
+  <div class="highlights-header">
+    <h3>Luxury Hawaii Experiences</h3>
+    <p>Discover the finest that the islands have to offer</p>
+  </div>
+  
+  <div class="highlights-grid">
+    {highlights.map((highlight) => (
+      <div class="highlight-card">
+        <div class="highlight-icon">{highlight.icon}</div>
+        <h4>{highlight.title}</h4>
+        <p>{highlight.description}</p>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .luxury-highlights {
+    padding: 3rem 2rem;
+    background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  }
+  
+  .highlights-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .highlights-header h3 {
+    font-size: 2rem;
+    color: #1e40af;
+    margin: 0 0 1rem 0;
+  }
+  
+  .highlights-header p {
+    color: #6b7280;
+    font-size: 1.125rem;
+    margin: 0;
+  }
+  
+  .highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .highlight-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .highlight-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .highlight-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .highlight-card h4 {
+    color: #1e40af;
+    margin: 0 0 1rem 0;
+    font-size: 1.25rem;
+  }
+  
+  .highlight-card p {
+    color: #6b7280;
+    margin: 0;
+    line-height: 1.6;
+  }
+</style>

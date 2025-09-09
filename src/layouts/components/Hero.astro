@@ -1,0 +1,97 @@
+---
+import TravelSearch from './TravelSearch.astro';
+
+interface Props {
+  title: string;
+  subtitle: string;
+}
+
+const { title, subtitle } = Astro.props;
+---
+
+<div class="relative min-h-screen overflow-hidden">
+  <div 
+    class="absolute inset-0 bg-cover bg-center bg-no-repeat transform transition-all duration-1000 hover:scale-105"
+    style="background-image: url('https://images.unsplash.com/photo-1542259009477-d625272157b7?auto=format&fit=crop&w=2000&q=80');"
+  >
+    <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-transparent"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(0,0,0,0.4)_100%)]"></div>
+  </div>
+  
+  <div class="relative h-full min-h-screen flex flex-col items-center justify-center text-center px-4 pb-32 pt-24">
+    <a href="/blog" class="relative bg-gradient-to-b from-blue-900 to-blue-800 rounded-full p-6 mb-2 shadow-2xl transform hover:scale-105 transition-all duration-300 animate-float group">
+      <div class="absolute inset-0 rounded-full bg-blue-500/30 blur-xl scale-110 animate-pulse-slow"></div>
+      
+      <div class="relative w-24 h-24">
+        <img 
+          src="/favicon.svg"
+          alt="Gateway to Aloha Logo" 
+          class="w-full h-full object-contain relative z-10 group-hover:rotate-180 transition-transform duration-700"
+          width="96"
+          height="96"
+          fetchpriority="high"
+        />
+      </div>
+    </a>
+
+    <a 
+      href="https://www.viator.com/Hawaii-tours/Dolphin-and-Whale-Watching/d278-g3-c77?pid=P00238425&mcid=42383&medium=link&medium_version=selector" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      class="inline-block px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 text-white text-xl font-bold rounded-full shadow-lg transform hover:scale-105 hover:from-amber-600 hover:to-amber-700 transition-all duration-300 mb-8 animate-pulse"
+    >
+      🎉 Book Your Discounted Tour Today! 🐋
+    </a>
+
+    <div class="text-white max-w-4xl mx-auto transform transition-all duration-700 hover:scale-105 mb-8">
+      <h1 
+        class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 drop-shadow-2xl bg-clip-text text-transparent bg-gradient-to-r from-white to-blue-100"
+      >
+        Your Gateway to Hawaii's Wonders
+      </h1>
+      <p class="text-xl md:text-2xl max-w-2xl mx-auto drop-shadow-xl leading-relaxed bg-black/20 backdrop-blur-sm rounded-lg p-6 mb-8">
+        Meet Duke, Your Personal Hawaii Guide 🌺<br><br>
+        Discover Hawaii like never before with our state-of-the-art chatbot. Duke is here to answer all your questions, guide your journey, and make your trip unforgettable!<br><br>
+        Plan Your Perfect Adventure Today!<br><br>
+        Explore our curated blogs for insider tips and hidden gems. Book discounted tours to unlock the true magic of Hawaii. Your dream vacation starts here!
+      </p>
+
+      <!-- Chat CTA Button -->
+      <div class="mb-8">
+        <a 
+          href="https://app.chatgptbuilder.io/webchat/?p=1058698&ref=Duke"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block"
+        >
+          <div class="bg-gradient-to-b from-blue-500/90 to-green-500/90 p-6 rounded-xl backdrop-blur-sm shadow-xl hover:scale-105 transition-all duration-300">
+            <h2 class="text-3xl font-bold mb-2">Chat with Duke Now!</h2>
+            <p class="text-xl mb-2">Discover Hawaii Like Never Before!</p>
+            <p class="text-lg">Your AI Travel Assistant Awaits!</p>
+          </div>
+        </a>
+      </div>
+
+      <div class="flex flex-wrap justify-center gap-4 mb-8">
+        <a 
+          href="/blog" 
+          class="px-8 py-4 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-full font-semibold transform hover:scale-105 hover:from-amber-700 hover:to-amber-800 transition-all duration-300 shadow-lg hover:shadow-xl"
+        >
+          Read Our Latest Blog Posts
+        </a>
+        <a 
+          href="/blog/2024-04-05-best-time-to-visit-hawaii" 
+          class="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-full font-semibold transform hover:scale-105 hover:bg-white/30 transition-all duration-300 shadow-lg hover:shadow-xl"
+        >
+          Best Time to Visit Hawaii
+        </a>
+      </div>
+    </div>
+
+    <div class="w-full max-w-2xl mx-auto px-4">
+      <TravelSearch />
+    </div>
+  </div>
+
+  <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent"></div>
+</div>

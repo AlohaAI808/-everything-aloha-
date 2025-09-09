@@ -1,0 +1,84 @@
+---
+// SearchResults.astro - Basic search results component
+export interface Props {
+  results?: Array<{
+    title: string;
+    description: string;
+    link: string;
+    type: string;
+  }>;
+}
+
+const { results = [] } = Astro.props;
+---
+
+<div class="search-results">
+  {results.length > 0 ? (
+    <div class="results-container">
+      <h3>Search Results ({results.length})</h3>
+      {results.map((result) => (
+        <div class="result-item">
+          <span class="result-type">{result.type}</span>
+          <h4><a href={result.link}>{result.title}</a></h4>
+          <p>{result.description}</p>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div class="no-results">
+      <p>No results found. Try searching for islands, activities, or experiences.</p>
+    </div>
+  )}
+</div>
+
+<style>
+  .search-results {
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+  
+  .results-container h3 {
+    color: #1e40af;
+    margin-bottom: 1rem;
+  }
+  
+  .result-item {
+    padding: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  
+  .result-type {
+    background: #10b981;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+  }
+  
+  .result-item h4 {
+    margin: 0.5rem 0;
+  }
+  
+  .result-item a {
+    color: #1e40af;
+    text-decoration: none;
+  }
+  
+  .result-item a:hover {
+    text-decoration: underline;
+  }
+  
+  .result-item p {
+    color: #6b7280;
+    margin: 0;
+  }
+  
+  .no-results {
+    text-align: center;
+    padding: 2rem;
+    color: #6b7280;
+  }
+</style>
